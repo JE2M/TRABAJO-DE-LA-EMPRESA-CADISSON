@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${Titulo}">Página Spring Boot</title>
+</head>
+<body>
+    <h1>Información de empleado</h1> 
+    <ul>
+        <li><strong>Nombre:</strong> <span th:text="${Empleado.nombre}"></span></li>
+        <li><strong>Apellido:</strong> <span th:text="${Empleado.apellido}"></span></li>
+        <li>
+            <strong>Dirección:</strong>
+            <span th:text="${Empleado.dirección != null ? Empleado.dirección : 'No tiene dirección'}"></span>
+        </li>
+        <li><strong>Puesto:</strong> <span th:text="${Empleado.puesto}"></span></li>
+        <li><strong>Edad:</strong> <span th:text="${Empleado.edad}"></span></li>
+        <li><strong>Teléfono:</strong> <span th:text="${Empleado.telefono}"></span></li>
+        <li><strong>ID:</strong> <span th:text="${Empleado.id}"></span></li>
+    </ul>
+
+    <h1>Lista de Empleados</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Dirección</th>
+                <th>Puesto</th>
+                <th>Edad</th>
+                <th>Teléfono</th>
+                <th>Departamento</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="Empleado : ${Empleados}">
+                <td th:text="${Empleado.nombre}"></td>
+                <td th:text="${Empleado.apellido}"></td>
+                <td th:text="${Empleado.dirección}"></td>
+                <td th:text="${Empleado.puesto}"></td>
+                <td th:text="${Empleado.edad}"></td>
+                <td th:text="${Empleado.telefono}"></td>
+                <td th:text="${Empleado.id}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+
+</body>
+</html>
