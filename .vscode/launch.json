@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SpringbootApplicationsApplication<springboot-applications>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.cadisson.springboot_applications.SpringbootApplicationsApplication",
+            "projectName": "springboot-applications",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
