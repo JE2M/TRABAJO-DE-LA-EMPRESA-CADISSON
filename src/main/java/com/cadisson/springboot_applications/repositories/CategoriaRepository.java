@@ -1,4 +1,7 @@
 package com.cadisson.springboot_applications.repositories;
 
-public class CategoriaRepository {
+import com.cadisson.springboot_applications.models.Categoria;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
 }
