@@ -1,0 +1,29 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; }
+.wrapper { display: flex; min-height: 100vh; }
+.menu-principal { width: 250px; background: linear-gradient(to bottom, #1B4965, #2A7F62); color: white; padding: 20px; position: fixed; left: 0; top: 0; height: 100vh; overflow-y: auto; box-shadow: 2px 0 5px rgba(0,0,0,0.1); }
+.logo { text-align: center; padding-bottom: 20px; border-bottom: 2px solid #FF6B35; margin-bottom: 30px; }
+.logo h2 { font-size: 20px; margin-bottom: 5px; }
+.logo p { font-size: 12px; opacity: 0.8; }
+.menu-opciones { list-style: none; padding: 0; }
+.menu-opciones li { margin: 10px 0; }
+.menu-item { color: white; text-decoration: none; padding: 12px 15px; border-radius: 5px; display: flex; align-items: center; gap: 10px; transition: 0.3s; }
+.menu-item:hover { background: #FF6B35; }
+.menu-item .icon { font-size: 18px; }
+.separator { border-top: 1px solid rgba(255,255,255,0.2); margin: 15px 0; }
+.content { flex: 1; margin-left: 250px; padding: 30px 20px; background: #f5f5f5; }
+.container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+h1 { color: #1B4965; margin-bottom: 30px; }
+.btn { padding: 10px 20px; margin: 5px; border: none; border-radius: 5px; cursor: pointer; text-decoration: none; display: inline-block; transition: 0.3s; }
+.btn-primary { background: #1B4965; color: white; }
+.btn-success { background: #27AE60; color: white; }
+.btn-warning { background: #F39C12; color: white; }
+.btn-danger { background: #E74C3C; color: white; }
+.btn-info { background: #3498DB; color: white; }
+.btn-sm { padding: 6px 12px; font-size: 12px; }
+.table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+.table thead { background: #1B4965; color: white; }
+.table th, .table td { padding: 15px; text-align: left; border-bottom: 1px solid #ddd; }
+.welcome-box { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px; border-radius: 10px; text-align: center; }
+.welcome-box h2 { margin-bottom: 20px; }
+.welcome-box ul { text-align: left; display: inline-block; }
