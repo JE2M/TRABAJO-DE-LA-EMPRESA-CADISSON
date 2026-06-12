@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- FRAGMENT DEL MENÚ -->
+<nav th:fragment="menu" class="menu-principal">
+    <div class="logo">
+        <h2>📦 Ventas</h2>
+        <p>Sistema Completo</p>
+    </div>
+    <ul class="menu-opciones">
+        <li>
+            <a href="/" class="menu-item">
+                <span class="icon">🏠</span>
+                <span class="text">Inicio</span>
+            </a>
+        </li>
+        <li>
+            <a href="/personas" class="menu-item">
+                <span class="icon">👥</span>
+                <span class="text">Personas</span>
+            </a>
+        </li>
+        <li>
+            <a href="/productos" class="menu-item">
+                <span class="icon">📦</span>
+                <span class="text">Productos</span>
+            </a>
+        </li>
+        <li>
+            <a href="/reportes" class="menu-item">
+                <span class="icon">📊</span>
+                <span class="text">Reportes</span>
+            </a>
+        </li>
+        <li class="separator"></li>
+        <li>
+            <a href="/logout" class="menu-item salir">
+                <span class="icon">🚪</span>
+                <span class="text">Salir</span>
+            </a>
+        </li>
+    </ul>
+</nav>

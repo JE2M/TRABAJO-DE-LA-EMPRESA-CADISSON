@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Personas</title>
+    <link rel="stylesheet" th:href="@{/css.css}">
+</head>
+<body>
+    <div class="wrapper">
+        <!-- INSERTA EL MENÚ -->
+        <div th:replace="layout/fragments :: menu"></div>
+        <!-- CONTENIDO ESPECÍFICO DE PERSONAS -->
+        <div class="content">
+            <div class="container">
+                <h1>👥 Gestión de Personas</h1>
+                <a href="/personas/nuevo" class="btn btn-primary">+ Agregar Nueva Persona</a>
+                <table class="table" th:unless="${personas.isEmpty()}">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Teléfono</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="persona : ${personas}">
+                            <td th:text="${persona.id}"></td>
+                            <td th:text="${persona.nombre}"></td>
+                            <td th:text="${persona.email}"></td>
+                            <td th:text="${persona.telefono}"></td>
+                            <td>
+                                <a th:href="@{/personas/{id}(id=${persona.id})}" class="btn btn-info btn-sm">Ver</a>
+                                <a th:href="@{/personas/{id}/editar(id=${persona.id})}" class="btn btn-warning btn-sm">Editar</a>
+                                <a th:href="@{/personas/{id}/eliminar(id=${persona.id})}" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro?')">Eliminar</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
