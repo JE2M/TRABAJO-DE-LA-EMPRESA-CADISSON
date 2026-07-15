@@ -31,5 +31,5 @@ server:
 
 cadisson:
   admin:
-    correo: ${CADISSON_ADMIN_EMAIL:admin@cadisson.com}
-    password: ${CADISSON_ADMIN_PASSWORD:}
+    correo: admin@cadisson.com
+    password: Admin2026!
