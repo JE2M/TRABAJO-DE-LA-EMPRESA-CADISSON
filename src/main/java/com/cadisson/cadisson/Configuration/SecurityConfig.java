@@ -78,7 +78,6 @@ public class SecurityConfig {
                                 "/admin/**",
                                 "/eventos/**",
                                 "/servicios/**",
-                                "/usuarios/**",
                                 "/cotizaciones/**"
                         )
                         .hasRole("ADMIN")
