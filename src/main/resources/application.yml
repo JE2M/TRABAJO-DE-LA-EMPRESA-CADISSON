@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: cadisson
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/cadisson_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  thymeleaf:
+    cache: false
+
+server:
+  port: 8080
+  error:
+    whitelabel:
+      enabled: false
+    include-exception: false
+    include-message: never
+    include-stacktrace: never
+    include-binding-errors: never
+
+cadisson:
+  admin:
+    correo: ${CADISSON_ADMIN_EMAIL:admin@cadisson.com}
+    password: ${CADISSON_ADMIN_PASSWORD:}
