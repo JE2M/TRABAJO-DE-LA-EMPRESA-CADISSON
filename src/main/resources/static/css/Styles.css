@@ -3824,17 +3824,14 @@ html {
     min-height: calc(100vh - 82px);
     display: flex;
     align-items: stretch;
-    background-color: #111116;
-    background-image:
+    background:
             linear-gradient(
                     90deg,
                     rgba(6, 6, 9, 0.98) 0%,
                     rgba(6, 6, 9, 0.83) 48%,
                     rgba(6, 6, 9, 0.42) 100%
             ),
-            url("/images/fondo.jpg");
-    background-position: center;
-    background-size: cover;
+            url("../images/hero.jpg") center center / cover no-repeat;
 }
 
 .hero-publico-overlay {
