@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Solicitud incorrecta | CADISSON</title>
+
+    <link rel="stylesheet"
+          href="/css/Styles.css"
+          th:href="@{/css/Styles.css}">
+
+</head>
+
+<body class="pagina-error">
+
+<main class="error-contenedor">
+
+    <div class="error-codigo">
+        400
+    </div>
+
+    <p class="error-etiqueta">
+        Solicitud incorrecta
+    </p>
+
+    <h1>No pudimos procesar la solicitud</h1>
+
+    <p class="error-mensaje"
+       th:text="${mensaje != null
+                ? mensaje
+                : 'Revisa los datos enviados e inténtalo nuevamente.'}">
+
+        Revisa los datos enviados.
+
+    </p>
+
+    <div class="error-acciones">
+
+        <button type="button"
+                class="error-boton-principal"
+                onclick="history.back()">
+
+            Volver atrás
+
+        </button>
+
+        <a th:href="@{/}"
+           class="error-boton-secundario">
+
+            Ir al inicio
+
+        </a>
+
+    </div>
+
+</main>
+
+</body>
+
+</html>

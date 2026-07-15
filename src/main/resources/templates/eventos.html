@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Eventos | CADISSON</title>
+
+    <link rel="stylesheet"
+          href="/css/Styles.css"
+          th:href="@{/css/Styles.css}">
+
+</head>
+
+<body class="pagina-eventos">
+
+<header class="eventos-cabecera">
+
+    <div>
+
+        <p>Panel administrativo</p>
+
+        <h1>Gestión de eventos</h1>
+
+    </div>
+
+    <div class="eventos-navegacion">
+
+        <a th:href="@{/eventos/calendario}"
+           class="btn-eventos-secundario">
+
+            Ver calendario
+
+        </a>
+
+        <a th:href="@{/cotizaciones}"
+           class="btn-eventos-secundario">
+
+            Ver cotizaciones
+
+        </a>
+
+        <a th:href="@{/admin}"
+           class="btn-eventos-secundario">
+
+            Panel principal
+
+        </a>
+
+        <a th:href="@{/}"
+           class="btn-eventos-principal">
+
+            Página pública
+
+        </a>
+
+    </div>
+
+</header>
+
+<main class="eventos-contenido">
+
+    <div class="mensaje-exito"
+         th:if="${mensaje != null}"
+         th:text="${mensaje}">
+    </div>
+
+    <div class="mensaje-error-admin"
+         th:if="${error != null}"
+         th:text="${error}">
+    </div>
+
+    <section class="eventos-panel">
+
+        <div class="eventos-panel-cabecera">
+
+            <div>
+
+                <h2>Agenda de eventos</h2>
+
+                <p>
+                    Administra, reprograma y actualiza
+                    los eventos de CADISSON.
+                </p>
+
+            </div>
+
+            <span class="eventos-contador"
+                  th:text="${#lists.size(eventos) + ' eventos'}">
+
+                0 eventos
+
+            </span>
+
+        </div>
+
+        <div class="eventos-tabla-responsive"
+             th:if="${eventos != null
+                     and !#lists.isEmpty(eventos)}">
+
+            <table class="eventos-tabla">
+
+                <thead>
+
+                <tr>
+
+                    <th>Código</th>
+
+                    <th>Cliente</th>
+
+                    <th>Servicio</th>
+
+                    <th>Evento</th>
+
+                    <th>Fecha y hora</th>
+
+                    <th>Ubicación</th>
+
+                    <th>Precio</th>
+
+                    <th>Estado</th>
+
+                    <th>Acción</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                <tr th:each="evento : ${eventos}">
+
+                    <td>
+
+                        <strong class="evento-codigo"
+                                th:text="${evento.codigo}">
+
+                            EVT-00001
+
+                        </strong>
+
+                        <small th:text="${evento.codigoCotizacion}">
+
+                            COT-00001
+
+                        </small>
+
+                    </td>
+
+                    <td>
+
+                        <strong th:text="${evento.nombreCliente}">
+
+                            Cliente
+
+                        </strong>
+
+                        <small th:text="${evento.telefono}">
+
+                            999999999
+
+                        </small>
+
+                    </td>
+
+                    <td th:text="${evento.servicio}">
+
+                        Servicio musical
+
+                    </td>
+
+                    <td>
+
+                        <strong th:text="${evento.tipoEvento}">
+
+                            Matrimonio
+
+                        </strong>
+
+                        <small>
+
+                            <span th:text="${evento.invitados}">
+
+                                0
+
+                            </span>
+
+                            invitados
+
+                        </small>
+
+                    </td>
+
+                    <td>
+
+                        <strong th:text="${evento.fecha}">
+
+                            2027-01-01
+
+                        </strong>
+
+                        <small th:text="${evento.hora}">
+
+                            20:00
+
+                        </small>
+
+                        <small>
+
+                            Duración:
+
+                            <span th:text="${evento.duracionHoras}">
+
+                                2
+
+                            </span>
+
+                            horas
+
+                        </small>
+
+                    </td>
+
+                    <td>
+
+                        <strong th:text="${evento.ciudad}">
+
+                            Ciudad
+
+                        </strong>
+
+                        <small th:text="${evento.direccion}">
+
+                            Dirección
+
+                        </small>
+
+                    </td>
+
+                    <td>
+
+                        <strong class="evento-precio">
+
+                            S/
+
+                            <span th:text="${#numbers.formatDecimal(
+                                    evento.precio,
+                                    1,
+                                    2
+                            )}">
+
+                                0.00
+
+                            </span>
+
+                        </strong>
+
+                    </td>
+
+                    <td>
+
+                        <span class="evento-estado"
+                              th:classappend="${evento.estado == 'Cancelado'}
+                                    ? ' evento-cancelado'
+                                    : (${evento.estado == 'Realizado'}
+                                        ? ' evento-realizado'
+                                        : (${evento.estado == 'En preparación'}
+                                            ? ' evento-preparacion'
+                                            : ' evento-confirmado'))"
+                              th:text="${evento.estado}">
+
+                            Confirmado
+
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <div class="acciones-evento-tabla">
+
+                            <a th:href="@{/eventos/{id}/editar(
+                                    id=${evento.id}
+                               )}"
+                               class="btn-editar-evento">
+
+                                Editar
+
+                            </a>
+
+                            <form class="formulario-estado-evento"
+                                  th:action="@{/eventos/{id}/estado(
+                                        id=${evento.id}
+                                  )}"
+                                  method="post">
+
+                                <select name="estado"
+                                        required>
+
+                                    <option th:each="estadoItem : ${estadosEvento}"
+                                            th:value="${estadoItem}"
+                                            th:text="${estadoItem}"
+                                            th:selected="${estadoItem
+                                                    == evento.estado}">
+                                    </option>
+
+                                </select>
+
+                                <button type="submit">
+
+                                    Guardar
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <div class="eventos-vacio"
+             th:if="${eventos == null
+                     or #lists.isEmpty(eventos)}">
+
+            <div class="eventos-vacio-icono">
+
+                ♪
+
+            </div>
+
+            <h3>No hay eventos registrados</h3>
+
+            <p>
+                Primero debes aceptar una cotización
+                y convertirla en evento.
+            </p>
+
+            <a th:href="@{/cotizaciones}"
+               class="btn-eventos-principal">
+
+                Ir a cotizaciones
+
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+</body>
+
+</html>

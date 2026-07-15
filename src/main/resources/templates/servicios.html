@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Gestión de servicios | CADISSON</title>
+
+    <link rel="stylesheet"
+          href="/css/Styles.css"
+          th:href="@{/css/Styles.css}">
+</head>
+
+<body class="pagina-servicios-admin">
+
+<header class="servicios-admin-cabecera">
+
+    <div>
+        <p>Panel administrativo</p>
+
+        <h1>Gestión de servicios</h1>
+    </div>
+
+    <div class="servicios-admin-navegacion">
+
+        <a th:href="@{/admin}"
+           class="btn-servicio-secundario">
+            Panel principal
+        </a>
+
+        <a th:href="@{/}"
+           class="btn-servicio-secundario">
+            Página pública
+        </a>
+
+        <a th:href="@{/servicios/nuevo}"
+           class="btn-servicio-principal">
+            Nuevo servicio
+        </a>
+
+    </div>
+
+</header>
+
+<main class="servicios-admin-contenido">
+
+    <div class="mensaje-exito"
+         th:if="${mensaje != null}"
+         th:text="${mensaje}">
+    </div>
+
+    <div class="mensaje-error-admin"
+         th:if="${error != null}"
+         th:text="${error}">
+    </div>
+
+    <section class="servicios-admin-panel">
+
+        <div class="servicios-admin-panel-cabecera">
+
+            <div>
+                <h2>Catálogo musical</h2>
+
+                <p>
+                    Administra los servicios que aparecen
+                    en la página principal de CADISSON.
+                </p>
+            </div>
+
+            <span class="servicios-admin-contador"
+                  th:text="${#lists.size(servicios) + ' servicios'}">
+                0 servicios
+            </span>
+
+        </div>
+
+        <div class="servicios-admin-tabla-responsive"
+             th:if="${servicios != null and !#lists.isEmpty(servicios)}">
+
+            <table class="servicios-admin-tabla">
+
+                <thead>
+
+                <tr>
+                    <th>Imagen</th>
+                    <th>Servicio</th>
+                    <th>Categoría</th>
+                    <th>Precio base</th>
+                    <th>Duración</th>
+                    <th>Acciones</th>
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                <tr th:each="servicio : ${servicios}">
+
+                    <td>
+
+                        <div class="servicio-admin-imagen">
+
+                            <img th:src="@{'/images/' + ${servicio.imagen}}"
+                                 th:alt="${servicio.nombre}"
+                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+
+                            <span>
+                                Sin imagen
+                            </span>
+
+                        </div>
+
+                    </td>
+
+                    <td>
+
+                        <strong th:text="${servicio.nombre}">
+                            Servicio musical
+                        </strong>
+
+                        <small th:text="${servicio.descripcion}">
+                            Descripción
+                        </small>
+
+                        <small class="servicio-admin-archivo"
+                               th:text="${servicio.imagen}">
+                            imagen.jpg
+                        </small>
+
+                    </td>
+
+                    <td>
+
+                        <span class="servicio-admin-categoria"
+                              th:text="${servicio.categoria}">
+                            Categoría
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <strong class="servicio-admin-precio">
+
+                            S/
+
+                            <span th:text="${#numbers.formatDecimal(
+                                    servicio.precio,
+                                    1,
+                                    2
+                            )}">
+                                0.00
+                            </span>
+
+                        </strong>
+
+                    </td>
+
+                    <td>
+
+                        <span th:text="${servicio.duracion}">
+                            2
+                        </span>
+
+                        horas
+
+                    </td>
+
+                    <td>
+
+                        <div class="servicio-admin-acciones">
+
+                            <a th:href="@{/servicios/editar/{id}(
+                                    id=${servicio.id}
+                               )}"
+                               class="btn-servicio-editar">
+
+                                Editar
+
+                            </a>
+
+                            <form th:action="@{/servicios/eliminar/{id}(
+                                        id=${servicio.id}
+                                   )}"
+                                  method="post"
+                                  onsubmit="return confirm('¿Seguro que deseas eliminar este servicio?');">
+
+                                <button type="submit"
+                                        class="btn-servicio-eliminar">
+
+                                    Eliminar
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <div class="servicios-admin-vacio"
+             th:if="${servicios == null or #lists.isEmpty(servicios)}">
+
+            <div class="servicios-admin-vacio-icono">
+                ♪
+            </div>
+
+            <h3>No existen servicios registrados</h3>
+
+            <p>
+                Crea el primer servicio para mostrarlo
+                en la página principal.
+            </p>
+
+            <a th:href="@{/servicios/nuevo}"
+               class="btn-servicio-principal">
+
+                Crear servicio
+
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+</body>
+
+</html>

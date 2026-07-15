@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Detalle de cotización | CADISSON</title>
+
+    <link rel="stylesheet"
+          href="/css/Styles.css"
+          th:href="@{/css/Styles.css}">
+
+</head>
+
+<body class="pagina-detalle-cotizacion">
+
+<header class="detalle-cotizacion-cabecera">
+
+    <div>
+
+        <p>Panel administrativo</p>
+
+        <h1>Detalle de cotización</h1>
+
+        <span th:text="${cotizacion.codigo}">
+            COT-00001
+        </span>
+
+    </div>
+
+    <div class="detalle-cabecera-acciones">
+
+        <a th:href="@{/admin}"
+           class="btn-volver-cotizaciones">
+
+            Panel principal
+
+        </a>
+
+        <a th:href="@{/cotizaciones}"
+           class="btn-descargar-pdf">
+
+            Ver cotizaciones
+
+        </a>
+
+    </div>
+
+</header>
+
+<main class="detalle-cotizacion-contenido">
+
+    <section class="detalle-cotizacion-panel">
+
+        <div class="detalle-cotizacion-titulo">
+
+            <div>
+
+                <p>Código de cotización</p>
+
+                <h2 th:text="${cotizacion.codigo}">
+                    COT-00001
+                </h2>
+
+            </div>
+
+            <span class="detalle-estado"
+                  th:text="${cotizacion.estado}">
+
+                Pendiente
+
+            </span>
+
+        </div>
+
+        <h3 class="detalle-seccion-titulo">
+            Datos del cliente
+        </h3>
+
+        <div class="detalle-cotizacion-grid">
+
+            <div class="detalle-cotizacion-item">
+
+                <span>Nombre</span>
+
+                <strong th:text="${cotizacion.nombreCliente}">
+                    Nombre del cliente
+                </strong>
+
+            </div>
+
+            <div class="detalle-cotizacion-item">
+
+                <span>Correo electrónico</span>
+
+                <strong th:text="${cotizacion.correo}">
+                    correo@ejemplo.com
+                </strong>
+
+            </div>
+
+            <div class="detalle-cotizacion-item">
+
+                <span>Teléfono</span>
+
+                <strong th:text="${cotizacion.telefono}">
+                    999999999
+                </strong>
+
+            </div>
+
+        </div>
+
+        <h3 class="detalle-seccion-titulo">
+            Información del evento
+        </h3>
+
+        <div class="detalle-cotizacion-grid">
+
+            <div class="detalle-cotizacion-item">
+
+                <span>Tipo de evento</span>
+
+                <strong th:text="${cotizacion.tipoEvento}">
+                    Bautizo
+                </strong>
+
+            </div>
+
+            <div class="detalle-cotizacion-item">
+
+                <span>Fecha</span>
+
+                <strong th:text="${cotizacion.fechaEvento}">
+                    2027-01-01
+                </strong>
+
+            </div>
+
+            <div class="detalle-cotizacion-item">
+
+                <span>Hora</span>
+
+                <strong th:text="${cotizacion.horaEvento}">
+                    12:00
+                </strong>
+
+            </div>
+
+            <div class="detalle-cotizacion-item">
+
+                <span>Ciudad</span>
+
+                <strong th:text="${cotizacion.ciudad}">
+                    San Román
+                </strong>
+
+            </div>
+
+            <div class="detalle-cotizacion-item">
+
+                <span>Dirección</span>
+
+                <strong th:text="${cotizacion.direccion}">
+                    Dirección del evento
+                </strong>
+
+            </div>
+
+            <div class="detalle-cotizacion-item">
+
+                <span>Invitados</span>
+
+                <strong th:text="${cotizacion.invitados}">
+                    100
+                </strong>
+
+            </div>
+
+        </div>
+
+        <h3 class="detalle-seccion-titulo">
+            Servicio solicitado
+        </h3>
+
+        <div class="detalle-cotizacion-grid">
+
+            <div class="detalle-cotizacion-item">
+
+                <span>Servicio</span>
+
+                <strong th:text="${cotizacion.servicio}">
+                    Agrupación Andina
+                </strong>
+
+            </div>
+
+            <div class="detalle-cotizacion-item">
+
+                <span>Paquete</span>
+
+                <strong th:text="${cotizacion.paquete}">
+                    Básico
+                </strong>
+
+            </div>
+
+            <div class="detalle-cotizacion-item">
+
+                <span>Horas contratadas</span>
+
+                <strong>
+
+                    <span th:text="${cotizacion.horas}">
+                        2
+                    </span>
+
+                    horas
+
+                </strong>
+
+            </div>
+
+        </div>
+
+        <div class="detalle-cotizacion-observaciones">
+
+            <span>Observaciones</span>
+
+            <p th:if="${cotizacion.observaciones != null
+                    and !cotizacion.observaciones.isBlank()}"
+               th:text="${cotizacion.observaciones}">
+
+                Observaciones
+
+            </p>
+
+            <p th:if="${cotizacion.observaciones == null
+                    or cotizacion.observaciones.isBlank()}">
+
+                Sin observaciones
+
+            </p>
+
+        </div>
+
+        <div class="detalle-cotizacion-total">
+
+            <div>
+
+                <span>Estado actual</span>
+
+                <strong th:text="${cotizacion.estado}">
+                    En revisión
+                </strong>
+
+            </div>
+
+            <div>
+
+                <span>Precio total</span>
+
+                <strong class="detalle-precio">
+
+                    S/
+
+                    <span th:text="${#numbers.formatDecimal(
+                            cotizacion.precioEstimado,
+                            1,
+                            2
+                    )}">
+
+                        0.00
+
+                    </span>
+
+                </strong>
+
+            </div>
+
+        </div>
+
+        <div class="detalle-cotizacion-acciones">
+
+            <form th:if="${cotizacion.estado == 'Aceptada'
+                 and eventoCreado == false}"
+                  th:action="@{/cotizaciones/{id}/convertir-evento(
+                id=${cotizacion.id}
+          )}"
+                  method="post">
+
+                <button type="submit"
+                        class="btn-confirmar-evento">
+
+                    Confirmar como evento
+
+                </button>
+
+            </form>
+
+            <div class="evento-ya-confirmado"
+                 th:if="${eventoCreado == true}">
+
+                Este evento ya fue confirmado
+
+            </div>
+
+            <a th:if="${contacto.whatsappUrl != null
+              and !#strings.isEmpty(contacto.whatsappUrl)}"
+               th:href="${contacto.whatsappUrl}"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="btn-contactar-whatsapp">
+
+                Enviar por WhatsApp
+
+            </a>
+
+            <a th:if="${contacto.correoUrl != null
+              and !#strings.isEmpty(contacto.correoUrl)}"
+               th:href="${contacto.correoUrl}"
+               class="btn-contactar-correo">
+
+                Preparar correo
+
+            </a>
+
+            <a th:href="@{/cotizaciones/{id}/pdf(
+            id=${cotizacion.id}
+       )}"
+               class="btn-descargar-pdf">
+
+                Descargar PDF
+
+            </a>
+
+            <a th:href="@{/cotizaciones}"
+               class="btn-volver-cotizaciones">
+
+                Volver a cotizaciones
+
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+</body>
+
+</html>

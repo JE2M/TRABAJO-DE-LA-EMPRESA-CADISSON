@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Acceso denegado | CADISSON</title>
+
+    <link rel="stylesheet"
+          href="/css/Styles.css"
+          th:href="@{/css/Styles.css}">
+
+</head>
+
+<body class="pagina-error">
+
+<main class="error-contenedor">
+
+    <div class="error-codigo">
+        403
+    </div>
+
+    <p class="error-etiqueta">
+        Acceso restringido
+    </p>
+
+    <h1>No tienes permiso para ingresar</h1>
+
+    <p class="error-mensaje">
+        Tu cuenta no tiene autorización para acceder
+        a esta sección del sistema.
+    </p>
+
+    <div class="error-acciones">
+
+        <a th:href="@{/admin}"
+           class="error-boton-principal">
+
+            Ir al panel
+
+        </a>
+
+        <a th:href="@{/}"
+           class="error-boton-secundario">
+
+            Ir al inicio
+
+        </a>
+
+    </div>
+
+</main>
+
+</body>
+
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Administrar cotizaciones | CADISSON</title>
+
+    <link rel="stylesheet"
+          href="/css/Styles.css"
+          th:href="@{/css/Styles.css}">
+
+</head>
+
+<body class="pagina-administracion">
+
+<header class="admin-cabecera">
+
+    <div>
+
+        <p>Panel administrativo</p>
+
+        <h1>Gestión de cotizaciones</h1>
+
+    </div>
+
+    <div class="admin-cabecera-acciones">
+
+        <a th:href="@{/admin}"
+           class="btn-volver-panel">
+
+            Panel principal
+
+        </a>
+
+        <a th:href="@{/}"
+           class="btn-volver-inicio">
+
+            Página pública
+
+        </a>
+
+    </div>
+
+</header>
+
+<main class="admin-contenido">
+
+    <div class="mensaje-exito"
+         th:if="${mensaje}"
+         th:text="${mensaje}">
+    </div>
+
+    <div class="mensaje-error-admin"
+         th:if="${error}"
+         th:text="${error}">
+    </div>
+
+    <section class="tabla-contenedor">
+
+        <div class="tabla-cabecera">
+
+            <div>
+
+                <h2>Solicitudes recibidas</h2>
+
+                <p>
+                    Revisa y actualiza el estado de cada cotización.
+                </p>
+
+            </div>
+
+            <span class="contador-cotizaciones"
+                  th:text="${#lists.size(cotizaciones) + ' solicitudes'}">
+
+                0 solicitudes
+
+            </span>
+
+        </div>
+
+        <div class="tabla-responsive"
+             th:if="${!#lists.isEmpty(cotizaciones)}">
+
+            <table class="tabla-cotizaciones">
+
+                <thead>
+
+                <tr>
+                    <th>Código</th>
+                    <th>Cliente</th>
+                    <th>Servicio</th>
+                    <th>Evento</th>
+                    <th>Fecha</th>
+                    <th>Precio</th>
+                    <th>Estado</th>
+                    <th>Acción</th>
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                <tr th:each="cotizacion : ${cotizaciones}">
+
+                    <td>
+
+                        <strong class="codigo-admin"
+                                th:text="${cotizacion.codigo}">
+
+                            COT-00001
+
+                        </strong>
+
+                    </td>
+
+                    <td>
+
+                        <strong th:text="${cotizacion.nombreCliente}">
+                            Cliente
+                        </strong>
+
+                        <small th:text="${cotizacion.telefono}">
+                            Teléfono
+                        </small>
+
+                    </td>
+
+                    <td th:text="${cotizacion.servicio}">
+                        Servicio
+                    </td>
+
+                    <td>
+
+                        <span th:text="${cotizacion.tipoEvento}">
+                            Evento
+                        </span>
+
+                        <small th:text="${cotizacion.ciudad}">
+                            Ciudad
+                        </small>
+
+                    </td>
+
+                    <td>
+
+                        <span th:text="${cotizacion.fechaEvento}">
+                            Fecha
+                        </span>
+
+                        <small th:text="${cotizacion.horaEvento}">
+                            Hora
+                        </small>
+
+                    </td>
+
+                    <td>
+
+                        <strong class="precio-admin">
+
+                            S/
+                            <span th:text="${#numbers.formatDecimal(
+                                    cotizacion.precioEstimado,
+                                    1,
+                                    2
+                            )}">
+                                0.00
+                            </span>
+
+                        </strong>
+
+                    </td>
+
+                    <td>
+
+                        <span class="estado-admin"
+                              th:classappend="${cotizacion.estado == 'Aceptada'}
+                                    ? ' estado-aceptada'
+                                    : (${cotizacion.estado == 'Rechazada'}
+                                        ? ' estado-rechazada'
+                                        : (${cotizacion.estado == 'Cancelada'}
+                                            ? ' estado-cancelada'
+                                            : ' estado-pendiente-admin'))"
+                              th:text="${cotizacion.estado}">
+
+                            Pendiente
+
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <div class="acciones-admin">
+
+                            <a class="btn-ver-detalle"
+                               th:href="@{/cotizaciones/{id}(
+        id=${cotizacion.id}
+   )}">
+                                Ver
+                            </a>
+
+                            <form class="formulario-estado"
+                                  th:action="@{/cotizaciones/{id}/estado(
+                    id=${cotizacion.id}
+              )}"
+                                  method="post">
+
+                                <select name="estado"
+                                        required>
+
+                                    <option th:each="estadoItem : ${estados}"
+                                            th:value="${estadoItem}"
+                                            th:text="${estadoItem}"
+                                            th:selected="${estadoItem
+                                == cotizacion.estado}">
+                                    </option>
+
+                                </select>
+
+                                <button type="submit">
+                                    Guardar
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <div class="sin-cotizaciones"
+             th:if="${#lists.isEmpty(cotizaciones)}">
+
+            <h3>No existen cotizaciones registradas</h3>
+
+            <p>
+                Las solicitudes de los clientes aparecerán aquí.
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
+
+</body>
+
+</html>

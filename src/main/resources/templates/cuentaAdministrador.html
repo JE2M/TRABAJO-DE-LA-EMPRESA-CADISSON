@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Mi cuenta | CADISSON</title>
+
+    <link rel="stylesheet"
+          href="/css/Styles.css"
+          th:href="@{/css/Styles.css}">
+
+</head>
+
+<body class="pagina-cuenta">
+
+<main class="cuenta-contenedor">
+
+    <header class="cuenta-cabecera">
+
+        <div>
+
+            <p>Administración CADISSON</p>
+
+            <h1>Mi cuenta</h1>
+
+            <span th:text="${correoAdministrador}">
+                admin@cadisson.com
+            </span>
+
+        </div>
+
+        <a th:href="@{/admin}"
+           class="btn-cuenta-volver">
+
+            Volver al panel
+
+        </a>
+
+    </header>
+
+    <section class="cuenta-panel">
+
+        <div class="cuenta-informacion">
+
+            <h2>Cambiar contraseña</h2>
+
+            <p>
+                Después de cambiar la contraseña,
+                deberás iniciar sesión nuevamente.
+            </p>
+
+        </div>
+
+        <div class="mensaje-error-admin"
+             th:if="${error != null}"
+             th:text="${error}">
+        </div>
+
+        <form th:action="@{/admin/cuenta/password}"
+              th:object="${cambioPassword}"
+              method="post"
+              class="cuenta-formulario">
+
+            <div class="resumen-errores"
+                 th:if="${#fields.hasAnyErrors()}">
+
+                <ul>
+
+                    <li th:each="errorItem : ${#fields.allErrors()}"
+                        th:text="${errorItem}">
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <div class="cuenta-campo">
+
+                <label for="passwordActual">
+                    Contraseña actual
+                </label>
+
+                <input type="password"
+                       id="passwordActual"
+                       th:field="*{passwordActual}"
+                       autocomplete="current-password"
+                       required>
+
+            </div>
+
+            <div class="cuenta-campo">
+
+                <label for="nuevaPassword">
+                    Nueva contraseña
+                </label>
+
+                <input type="password"
+                       id="nuevaPassword"
+                       th:field="*{nuevaPassword}"
+                       minlength="8"
+                       maxlength="72"
+                       autocomplete="new-password"
+                       required>
+
+                <small>
+                    Debe contener entre 8 y 72 caracteres.
+                </small>
+
+            </div>
+
+            <div class="cuenta-campo">
+
+                <label for="confirmarPassword">
+                    Confirmar nueva contraseña
+                </label>
+
+                <input type="password"
+                       id="confirmarPassword"
+                       th:field="*{confirmarPassword}"
+                       minlength="8"
+                       maxlength="72"
+                       autocomplete="new-password"
+                       required>
+
+            </div>
+
+            <div class="cuenta-botones">
+
+                <button type="submit"
+                        class="btn-cambiar-password">
+
+                    Cambiar contraseña
+
+                </button>
+
+                <a th:href="@{/admin}"
+                   class="btn-cuenta-cancelar">
+
+                    Cancelar
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </section>
+
+</main>
+
+</body>
+
+</html>

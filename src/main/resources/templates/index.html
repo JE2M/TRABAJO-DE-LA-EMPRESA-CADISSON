@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <meta name="description"
+        content="CADISSON, productora musical para matrimonios, aniversarios, eventos corporativos y celebraciones especiales.">
+
+  <title>CADISSON | Productora Musical</title>
+
+  <link rel="stylesheet"
+        href="/css/Styles.css"
+        th:href="@{/css/Styles.css}">
+
+  <link rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+  <link rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body class="pagina-publica">
+
+<div class="mensaje-logout-publico"
+     th:if="${param.logout}">
+
+  La sesión administrativa se cerró correctamente.
+
+</div>
+
+<header class="cabecera-publica">
+
+  <a th:href="@{/}"
+     class="marca-publica">
+
+    <strong>CADISSON</strong>
+
+    <span>Productora Musical</span>
+
+  </a>
+
+  <nav class="navegacion-publica">
+
+    <a href="#inicio">
+      Inicio
+    </a>
+
+    <a href="#servicios">
+      Servicios
+    </a>
+
+    <a href="#nosotros">
+      Nosotros
+    </a>
+
+    <a href="#contacto">
+      Contacto
+    </a>
+
+  </nav>
+
+  <div class="acciones-publicas">
+
+    <a th:href="@{/login}"
+       class="btn-login-publico">
+
+      Iniciar sesión
+
+    </a>
+
+    <a th:href="@{/cotizaciones/nuevo}"
+       class="btn-cotizar-publico">
+
+      Cotizar evento
+
+    </a>
+
+  </div>
+
+</header>
+
+<main>
+
+  <section class="hero-publico"
+           id="inicio">
+
+    <div class="hero-publico-overlay">
+
+      <div class="hero-publico-contenido">
+
+        <p class="hero-publico-etiqueta">
+
+          Música en vivo para tus eventos
+
+        </p>
+
+        <h1>
+
+          Convierte tu evento en una
+
+          <span>
+                        obra maestra
+                    </span>
+
+        </h1>
+
+        <p class="hero-publico-descripcion">
+
+          Mariachis, orquestas tropicales y agrupaciones
+          andinas para matrimonios, aniversarios,
+          eventos corporativos y celebraciones inolvidables.
+
+        </p>
+
+        <div class="hero-publico-botones">
+
+          <a th:href="@{/cotizaciones/nuevo}"
+             class="btn-hero-principal">
+
+            Solicitar cotización
+
+          </a>
+
+          <a href="#servicios"
+             class="btn-hero-secundario">
+
+            Conocer servicios
+
+          </a>
+
+        </div>
+
+      </div>
+
+      <div class="estadisticas-publicas">
+
+        <article>
+
+          <strong>500+</strong>
+
+          <span>Presentaciones realizadas</span>
+
+        </article>
+
+        <article>
+
+          <strong>8</strong>
+
+          <span>Años de experiencia</span>
+
+        </article>
+
+        <article>
+
+          <strong th:text="${servicios != null
+                            ? #lists.size(servicios)
+                            : 0}">
+
+            3
+
+          </strong>
+
+          <span>Servicios disponibles</span>
+
+        </article>
+
+        <article>
+
+          <strong>100%</strong>
+
+          <span>Compromiso profesional</span>
+
+        </article>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="servicios-publicos"
+           id="servicios">
+
+    <div class="encabezado-seccion-publica">
+
+      <p>
+        Catálogo musical
+      </p>
+
+      <h2>
+        Nuestros servicios
+      </h2>
+
+      <span>
+
+                Elige la agrupación que mejor se adapte
+                al estilo y las necesidades de tu evento.
+
+            </span>
+
+    </div>
+
+    <div class="servicios-publicos-grid"
+         th:if="${servicios != null
+                     and !#lists.isEmpty(servicios)}">
+
+      <article class="servicio-publico-card"
+               th:each="servicio : ${servicios}">
+
+        <div class="servicio-publico-imagen">
+
+          <img th:src="@{'/images/' + ${servicio.imagen}}"
+               th:alt="${servicio.nombre}"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+
+          <div class="servicio-publico-sin-imagen">
+
+            CADISSON
+
+          </div>
+
+          <span class="servicio-publico-categoria"
+                th:text="${servicio.categoria}">
+
+                        Categoría
+
+                    </span>
+
+        </div>
+
+        <div class="servicio-publico-contenido">
+
+          <h3 th:text="${servicio.nombre}">
+
+            Servicio musical
+
+          </h3>
+
+          <p class="servicio-publico-descripcion"
+             th:text="${servicio.descripcion}">
+
+            Descripción del servicio musical.
+
+          </p>
+
+          <div class="servicio-publico-informacion">
+
+            <div>
+
+              <span>Desde</span>
+
+              <strong>
+
+                S/
+
+                <span th:text="${#numbers.formatDecimal(
+                                        servicio.precio,
+                                        1,
+                                        2
+                                )}">
+
+                                    0.00
+
+                                </span>
+
+              </strong>
+
+            </div>
+
+            <div>
+
+              <span>Duración</span>
+
+              <strong>
+
+                                <span th:text="${servicio.duracion}">
+                                    2
+                                </span>
+
+                horas
+
+              </strong>
+
+            </div>
+
+          </div>
+
+          <ul class="servicio-publico-lista">
+
+            <li>
+              Presentación profesional
+            </li>
+
+            <li>
+              Repertorio personalizado
+            </li>
+
+            <li>
+              Atención para diferentes eventos
+            </li>
+
+          </ul>
+
+          <a th:href="@{/cotizaciones/nuevo(
+                            servicioId=${servicio.id}
+                       )}"
+             class="btn-servicio-publico">
+
+            Cotizar este servicio
+
+          </a>
+
+        </div>
+
+      </article>
+
+    </div>
+
+    <div class="servicios-publicos-vacio"
+         th:if="${servicios == null
+                     or #lists.isEmpty(servicios)}">
+
+      <h3>
+        No hay servicios disponibles
+      </h3>
+
+      <p>
+        El catálogo musical se actualizará próximamente.
+      </p>
+
+    </div>
+
+  </section>
+
+  <section class="ventajas-publicas">
+
+    <div class="encabezado-seccion-publica">
+
+      <p>
+        Calidad y experiencia
+      </p>
+
+      <h2>
+        ¿Por qué elegir CADISSON?
+      </h2>
+
+      <span>
+
+                Organizamos cada presentación con responsabilidad,
+                puntualidad y atención personalizada.
+
+            </span>
+
+    </div>
+
+    <div class="ventajas-publicas-grid">
+
+      <article>
+
+        <span>01</span>
+
+        <h3>
+          Músicos profesionales
+        </h3>
+
+        <p>
+
+          Trabajamos con agrupaciones preparadas
+          para brindar presentaciones de alta calidad.
+
+        </p>
+
+      </article>
+
+      <article>
+
+        <span>02</span>
+
+        <h3>
+          Atención personalizada
+        </h3>
+
+        <p>
+
+          Adaptamos el repertorio, duración y características
+          del servicio a las necesidades del evento.
+
+        </p>
+
+      </article>
+
+      <article>
+
+        <span>03</span>
+
+        <h3>
+          Cotización transparente
+        </h3>
+
+        <p>
+
+          El sistema calcula el precio considerando el servicio,
+          paquete, duración y adicionales seleccionados.
+
+        </p>
+
+      </article>
+
+      <article>
+
+        <span>04</span>
+
+        <h3>
+          Organización confiable
+        </h3>
+
+        <p>
+
+          Registramos y administramos cada evento
+          para evitar conflictos de fecha y horario.
+
+        </p>
+
+      </article>
+
+    </div>
+
+  </section>
+
+  <section class="nosotros-publico"
+           id="nosotros">
+
+    <div class="nosotros-publico-contenido">
+
+      <p class="nosotros-publico-etiqueta">
+        Sobre nosotros
+      </p>
+
+      <h2>
+        Creamos experiencias musicales inolvidables
+      </h2>
+
+      <p>
+
+        CADISSON es una productora musical dedicada
+        a la organización de presentaciones para eventos
+        sociales, culturales y empresariales.
+
+      </p>
+
+      <p>
+
+        Nuestro objetivo es conectar a cada cliente con
+        el servicio musical adecuado y acompañarlo desde
+        la solicitud de cotización hasta la realización
+        del evento.
+
+      </p>
+
+      <a th:href="@{/cotizaciones/nuevo}"
+         class="btn-nosotros-cotizar">
+
+        Organizar mi evento
+
+      </a>
+
+    </div>
+
+    <div class="nosotros-publico-datos">
+
+      <article>
+
+        <strong>
+          Planificación
+        </strong>
+
+        <span>
+                    Coordinación de fechas, horarios y servicios.
+                </span>
+
+      </article>
+
+      <article>
+
+        <strong>
+          Variedad musical
+        </strong>
+
+        <span>
+                    Diferentes alternativas para cada celebración.
+                </span>
+
+      </article>
+
+      <article>
+
+        <strong>
+          Seguimiento
+        </strong>
+
+        <span>
+                    Administración de cotizaciones y eventos.
+                </span>
+
+      </article>
+
+    </div>
+
+  </section>
+
+  <section class="proceso-publico">
+
+    <div class="encabezado-seccion-publica">
+
+      <p>
+        Proceso sencillo
+      </p>
+
+      <h2>
+        Organiza tu evento en cuatro pasos
+      </h2>
+
+    </div>
+
+    <div class="proceso-publico-grid">
+
+      <article>
+
+        <span>1</span>
+
+        <h3>
+          Elige un servicio
+        </h3>
+
+        <p>
+          Revisa las agrupaciones disponibles.
+        </p>
+
+      </article>
+
+      <article>
+
+        <span>2</span>
+
+        <h3>
+          Completa tus datos
+        </h3>
+
+        <p>
+          Indica fecha, lugar y características del evento.
+        </p>
+
+      </article>
+
+      <article>
+
+        <span>3</span>
+
+        <h3>
+          Recibe tu cotización
+        </h3>
+
+        <p>
+          El sistema calculará automáticamente el precio.
+        </p>
+
+      </article>
+
+      <article>
+
+        <span>4</span>
+
+        <h3>
+          Confirma el evento
+        </h3>
+
+        <p>
+          Coordinamos los detalles finales de la presentación.
+        </p>
+
+      </article>
+
+    </div>
+
+  </section>
+
+  <section class="contacto-publico"
+           id="contacto">
+
+    <div>
+
+      <p>
+        Tu celebración comienza aquí
+      </p>
+
+      <h2>
+        Solicita una cotización para tu próximo evento
+      </h2>
+
+      <span>
+
+                Completa el formulario y obtén una propuesta
+                según el servicio y las opciones seleccionadas.
+
+            </span>
+
+    </div>
+
+    <a th:href="@{/cotizaciones/nuevo}"
+       class="btn-contacto-publico">
+
+      Cotizar ahora
+
+    </a>
+
+  </section>
+
+</main>
+
+<footer class="pie-publico">
+
+  <div class="pie-publico-marca">
+
+    <strong>
+      CADISSON
+    </strong>
+
+    <span>
+            Productora Musical
+        </span>
+
+  </div>
+
+  <div class="pie-publico-enlaces">
+
+    <a href="#inicio">
+      Inicio
+    </a>
+
+    <a href="#servicios">
+      Servicios
+    </a>
+
+    <a href="#nosotros">
+      Nosotros
+    </a>
+
+    <a href="#contacto">
+      Contacto
+    </a>
+
+  </div>
+
+  <p>
+
+    © 2026 CADISSON. Todos los derechos reservados.
+
+  </p>
+
+</footer>
+
+</body>
+
+</html>

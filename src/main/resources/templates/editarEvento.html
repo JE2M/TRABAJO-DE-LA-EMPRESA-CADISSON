@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Editar evento | CADISSON</title>
+
+    <link rel="stylesheet"
+          href="/css/Styles.css"
+          th:href="@{/css/Styles.css}">
+
+</head>
+
+<body class="pagina-editar-evento">
+
+<main class="editar-evento-contenedor">
+
+    <header class="editar-evento-cabecera">
+
+        <div>
+
+            <p>Administración de eventos</p>
+
+            <h1>Reprogramar evento</h1>
+
+            <span th:text="${eventoActual.codigo}">
+                EVT-00001
+            </span>
+
+        </div>
+
+        <a th:href="@{/eventos}"
+           class="btn-editar-volver">
+
+            Volver a eventos
+
+        </a>
+
+    </header>
+
+    <div class="mensaje-error-admin"
+         th:if="${error}"
+         th:text="${error}">
+    </div>
+
+    <section class="editar-evento-panel">
+
+        <div class="editar-evento-resumen">
+
+            <div>
+                <span>Cliente</span>
+                <strong th:text="${eventoActual.nombreCliente}">
+                    Cliente
+                </strong>
+            </div>
+
+            <div>
+                <span>Servicio</span>
+                <strong th:text="${eventoActual.servicio}">
+                    Servicio
+                </strong>
+            </div>
+
+            <div>
+                <span>Tipo de evento</span>
+                <strong th:text="${eventoActual.tipoEvento}">
+                    Evento
+                </strong>
+            </div>
+
+            <div>
+                <span>Estado</span>
+                <strong th:text="${eventoActual.estado}">
+                    Confirmado
+                </strong>
+            </div>
+
+        </div>
+
+        <form th:action="@{/eventos/{id}/editar(
+                    id=${eventoActual.id}
+              )}"
+              th:object="${evento}"
+              method="post"
+              class="editar-evento-formulario">
+
+            <div class="resumen-errores"
+                 th:if="${#fields.hasAnyErrors()}">
+
+                <ul>
+
+                    <li th:each="error : ${#fields.allErrors()}"
+                        th:text="${error}">
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <div class="editar-evento-fila">
+
+                <div class="editar-evento-campo">
+
+                    <label for="fecha">
+                        Fecha
+                    </label>
+
+                    <input type="date"
+                           id="fecha"
+                           th:field="*{fecha}"
+                           required>
+
+                </div>
+
+                <div class="editar-evento-campo">
+
+                    <label for="hora">
+                        Hora
+                    </label>
+
+                    <input type="time"
+                           id="hora"
+                           th:field="*{hora}"
+                           required>
+
+                </div>
+
+                <div class="editar-evento-campo">
+
+                    <label for="duracionHoras">
+                        Duración
+                    </label>
+
+                    <input type="number"
+                           id="duracionHoras"
+                           th:field="*{duracionHoras}"
+                           min="1"
+                           max="12"
+                           required>
+
+                </div>
+
+            </div>
+
+            <div class="editar-evento-fila">
+
+                <div class="editar-evento-campo">
+
+                    <label for="ciudad">
+                        Ciudad
+                    </label>
+
+                    <input type="text"
+                           id="ciudad"
+                           th:field="*{ciudad}"
+                           required>
+
+                </div>
+
+                <div class="editar-evento-campo">
+
+                    <label for="invitados">
+                        Invitados
+                    </label>
+
+                    <input type="number"
+                           id="invitados"
+                           th:field="*{invitados}"
+                           min="1"
+                           max="10000"
+                           required>
+
+                </div>
+
+            </div>
+
+            <div class="editar-evento-campo">
+
+                <label for="direccion">
+                    Dirección
+                </label>
+
+                <input type="text"
+                       id="direccion"
+                       th:field="*{direccion}"
+                       required>
+
+            </div>
+
+            <div class="editar-evento-campo">
+
+                <label for="observaciones">
+                    Observaciones
+                </label>
+
+                <textarea id="observaciones"
+                          rows="5"
+                          maxlength="500"
+                          th:field="*{observaciones}">
+                </textarea>
+
+            </div>
+
+            <button type="submit"
+                    class="btn-guardar-evento">
+
+                Guardar cambios
+
+            </button>
+
+        </form>
+
+    </section>
+
+</main>
+
+</body>
+
+</html>
