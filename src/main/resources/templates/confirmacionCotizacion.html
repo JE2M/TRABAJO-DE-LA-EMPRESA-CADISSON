@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Cotización enviada | CADISSON</title>
+
+    <link rel="stylesheet"
+          href="/css/Styles.css"
+          th:href="@{/css/Styles.css}">
+
+</head>
+
+<body class="pagina-confirmacion">
+
+<main class="confirmacion-contenedor">
+
+    <div class="confirmacion-icono">
+        ✓
+    </div>
+
+    <p class="confirmacion-etiqueta">
+        Solicitud registrada
+    </p>
+
+    <h1>
+        ¡Cotización enviada correctamente!
+    </h1>
+
+    <p class="confirmacion-mensaje">
+        Hemos recibido los datos de tu evento.
+        Nuestro equipo se comunicará contigo para
+        confirmar la disponibilidad y los detalles.
+    </p>
+
+    <section class="resumen-cotizacion">
+
+        <div class="codigo-cotizacion">
+
+            <span>Número de cotización</span>
+
+            <strong th:text="${cotizacion.codigo}">
+                COT-00001
+            </strong>
+
+        </div>
+
+        <div class="resumen-grid">
+
+            <div class="resumen-elemento">
+
+                <span>Cliente</span>
+
+                <strong th:text="${cotizacion.nombreCliente}">
+                    Nombre
+                </strong>
+
+            </div>
+
+            <div class="resumen-elemento">
+
+                <span>Servicio</span>
+
+                <strong th:text="${cotizacion.servicio}">
+                    Servicio musical
+                </strong>
+
+            </div>
+
+            <div class="resumen-elemento">
+
+                <span>Tipo de evento</span>
+
+                <strong th:text="${cotizacion.tipoEvento}">
+                    Evento
+                </strong>
+
+            </div>
+
+            <div class="resumen-elemento">
+
+                <span>Paquete</span>
+
+                <strong th:text="${cotizacion.paquete}">
+                    Básico
+                </strong>
+
+            </div>
+
+            <div class="resumen-elemento">
+
+                <span>Fecha</span>
+
+                <strong th:text="${cotizacion.fechaEvento}">
+                    2026-07-20
+                </strong>
+
+            </div>
+
+            <div class="resumen-elemento">
+
+                <span>Hora</span>
+
+                <strong th:text="${cotizacion.horaEvento}">
+                    20:00
+                </strong>
+
+            </div>
+
+            <div class="resumen-elemento">
+
+                <span>Ciudad</span>
+
+                <strong th:text="${cotizacion.ciudad}">
+                    Juliaca
+                </strong>
+
+            </div>
+
+            <div class="resumen-elemento">
+
+                <span>Estado</span>
+
+                <strong class="estado-pendiente"
+                        th:text="${cotizacion.estado}">
+                    Pendiente
+                </strong>
+
+            </div>
+
+        </div>
+
+        <div class="precio-cotizacion">
+
+            <span>Precio estimado</span>
+
+            <strong>
+                S/
+                <span th:text="${#numbers.formatDecimal(
+                        cotizacion.precioEstimado,
+                        1,
+                        2
+                )}">
+                    0.00
+                </span>
+            </strong>
+
+        </div>
+
+    </section>
+
+    <div class="acciones-confirmacion">
+
+        <a th:href="@{/}"
+           class="btn-confirmacion-principal">
+
+            Volver al inicio
+
+        </a>
+
+        <a th:href="@{/cotizaciones/nuevo}"
+           class="btn-confirmacion-secundario">
+
+            Realizar otra cotización
+
+        </a>
+
+    </div>
+
+</main>
+
+</body>
+
+</html>

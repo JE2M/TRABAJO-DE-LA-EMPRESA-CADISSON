@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Cotizar Evento | CADISSON</title>
+
+    <link rel="stylesheet"
+          href="/css/Styles.css"
+          th:href="@{/css/Styles.css}">
+</head>
+
+<body class="pagina-cotizacion">
+
+<div class="contenedor-cotizacion">
+
+    <h1>Solicita tu cotización</h1>
+
+    <form th:action="@{/cotizaciones/guardar}"
+          th:object="${cotizacion}"
+          method="post">
+
+        <div class="resumen-errores"
+             th:if="${#fields.hasAnyErrors()}">
+
+            <p>Corrige los siguientes datos:</p>
+
+            <ul>
+                <li th:each="error : ${#fields.allErrors()}"
+                    th:text="${error}">
+                    Error
+                </li>
+            </ul>
+
+        </div>
+
+        <div class="fila">
+
+            <div class="campo">
+
+                <label for="nombreCliente">
+                    Nombre completo
+                </label>
+
+                <input type="text"
+                       id="nombreCliente"
+                       th:field="*{nombreCliente}"
+                       placeholder="Ingrese su nombre completo"
+                       required>
+
+            </div>
+
+            <div class="campo">
+
+                <label for="correo">
+                    Correo electrónico
+                </label>
+
+                <input type="email"
+                       id="correo"
+                       th:field="*{correo}"
+                       placeholder="ejemplo@correo.com"
+                       required>
+
+            </div>
+
+        </div>
+
+        <div class="fila">
+
+            <div class="campo">
+
+                <label for="telefono">
+                    Celular
+                </label>
+
+                <input type="tel"
+                       id="telefono"
+                       th:field="*{telefono}"
+                       placeholder="987654321"
+                       required>
+
+            </div>
+
+            <div class="campo">
+
+                <label for="ciudad">
+                    Ciudad
+                </label>
+
+                <input type="text"
+                       id="ciudad"
+                       th:field="*{ciudad}"
+                       placeholder="Ejemplo: Juliaca"
+                       required>
+
+            </div>
+
+        </div>
+
+        <div class="campo">
+
+            <label for="direccion">
+                Dirección del evento
+            </label>
+
+            <input type="text"
+                   id="direccion"
+                   th:field="*{direccion}"
+                   placeholder="Ingrese la dirección del evento"
+                   required>
+
+        </div>
+
+        <div class="fila">
+
+            <div class="campo">
+
+                <label for="tipoEvento">
+                    Tipo de evento
+                </label>
+
+                <select id="tipoEvento"
+                        th:field="*{tipoEvento}"
+                        required>
+
+                    <option value="">
+                        Seleccione el tipo de evento
+                    </option>
+
+                    <option value="Matrimonio">
+                        Matrimonio
+                    </option>
+
+                    <option value="Cumpleaños">
+                        Cumpleaños
+                    </option>
+
+                    <option value="Bautizo">
+                        Bautizo
+                    </option>
+
+                    <option value="Graduación">
+                        Graduación
+                    </option>
+
+                    <option value="Corporativo">
+                        Corporativo
+                    </option>
+
+                    <option value="Festival">
+                        Festival
+                    </option>
+
+                    <option value="Otro">
+                        Otro
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="campo">
+
+                <label for="servicio">
+                    Servicio musical
+                </label>
+
+                <select id="servicio"
+                        th:field="*{servicioId}"
+                        required>
+
+                    <option value="">
+                        Seleccione un servicio
+                    </option>
+
+                    <option th:each="servicioItem : ${servicios}"
+                            th:value="${servicioItem.id}"
+                            th:text="${servicioItem.nombre
+                            + ' — Desde S/ '
+                            + #numbers.formatDecimal(
+                                servicioItem.precio,
+                                1,
+                                2
+                            )}">
+                    </option>
+
+                </select>
+
+                <p class="mensaje-error"
+                   th:if="${#fields.hasErrors('servicioId')}"
+                   th:errors="*{servicioId}">
+                    Error del servicio
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="fila">
+
+            <div class="campo">
+
+                <label for="fechaEvento">
+                    Fecha del evento
+                </label>
+
+                <input type="date"
+                       id="fechaEvento"
+                       th:field="*{fechaEvento}"
+                       required>
+
+            </div>
+
+            <div class="campo">
+
+                <label for="horaEvento">
+                    Hora del evento
+                </label>
+
+                <input type="time"
+                       id="horaEvento"
+                       th:field="*{horaEvento}"
+                       required>
+
+            </div>
+
+        </div>
+
+        <div class="fila">
+
+            <div class="campo">
+
+                <label for="paquete">
+                    Paquete
+                </label>
+
+                <select id="paquete"
+                        th:field="*{paquete}"
+                        required>
+
+                    <option value="">
+                        Seleccione un paquete
+                    </option>
+
+                    <option value="Básico">
+                        Básico
+                    </option>
+
+                    <option value="Premium">
+                        Premium
+                    </option>
+
+                    <option value="VIP">
+                        VIP
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="campo">
+
+                <label for="horas">
+                    Horas de presentación
+                </label>
+
+                <input type="number"
+                       id="horas"
+                       th:field="*{horas}"
+                       min="1"
+                       max="8"
+                       required>
+
+            </div>
+
+        </div>
+
+        <div class="campo">
+
+            <label for="invitados">
+                Cantidad de invitados
+            </label>
+
+            <input type="number"
+                   id="invitados"
+                   th:field="*{invitados}"
+                   min="1"
+                   max="10000"
+                   placeholder="Ejemplo: 150"
+                   required>
+
+        </div>
+
+        <div class="campo">
+
+            <label for="observaciones">
+                Observaciones
+            </label>
+
+            <textarea id="observaciones"
+                      rows="5"
+                      th:field="*{observaciones}"
+                      maxlength="500"
+                      placeholder="Escriba detalles adicionales sobre su evento">
+            </textarea>
+
+        </div>
+
+        <h2>Servicios adicionales</h2>
+
+        <div class="extras">
+
+            <label>
+
+                <input type="checkbox"
+                       th:field="*{sonido}">
+
+                Sonido profesional
+
+            </label>
+
+            <label>
+
+                <input type="checkbox"
+                       th:field="*{luces}">
+
+                Luces LED
+
+            </label>
+
+            <label>
+
+                <input type="checkbox"
+                       th:field="*{pantallaLed}">
+
+                Pantalla LED
+
+            </label>
+
+            <label>
+
+                <input type="checkbox"
+                       th:field="*{maestroCeremonia}">
+
+                Maestro de ceremonia
+
+            </label>
+
+            <label>
+
+                <input type="checkbox"
+                       th:field="*{transporte}">
+
+                Transporte
+
+            </label>
+
+        </div>
+
+        <button type="submit"
+                class="btn-dorado">
+
+            Enviar cotización
+
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+
+</html>

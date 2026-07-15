@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Página no encontrada | CADISSON</title>
+
+    <link rel="stylesheet"
+          href="/css/Styles.css"
+          th:href="@{/css/Styles.css}">
+
+</head>
+
+<body class="pagina-error">
+
+<main class="error-contenedor">
+
+    <div class="error-codigo">
+        404
+    </div>
+
+    <p class="error-etiqueta">
+        Página no encontrada
+    </p>
+
+    <h1>La dirección solicitada no existe</h1>
+
+    <p class="error-mensaje">
+        Es posible que la página haya sido eliminada,
+        movida o que la dirección esté escrita incorrectamente.
+    </p>
+
+    <div class="error-acciones">
+
+        <a th:href="@{/}"
+           class="error-boton-principal">
+
+            Volver al inicio
+
+        </a>
+
+        <a th:href="@{/admin}"
+           class="error-boton-secundario">
+
+            Panel administrativo
+
+        </a>
+
+    </div>
+
+</main>
+
+</body>
+
+</html>

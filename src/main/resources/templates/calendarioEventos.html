@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Calendario de eventos | CADISSON</title>
+
+    <link rel="stylesheet"
+          href="/css/Styles.css"
+          th:href="@{/css/Styles.css}">
+
+</head>
+
+<body class="pagina-calendario">
+
+<header class="calendario-cabecera">
+
+    <div>
+
+        <p>Panel administrativo</p>
+
+        <h1>Calendario de eventos</h1>
+
+    </div>
+
+    <div class="calendario-cabecera-acciones">
+
+        <a th:href="@{/eventos}"
+           class="btn-calendario-secundario">
+
+            Ver lista
+
+        </a>
+
+        <a th:href="@{/}"
+           class="btn-calendario-principal">
+
+            Volver al inicio
+
+        </a>
+
+    </div>
+
+</header>
+
+<main class="calendario-contenido">
+
+    <section class="calendario-panel">
+
+        <div class="calendario-navegacion">
+
+            <a th:href="@{/eventos/calendario(
+                    anio=${calendario.anioAnterior},
+                    mes=${calendario.mesAnterior}
+               )}"
+               class="calendario-flecha">
+
+                ‹
+
+            </a>
+
+            <div>
+
+                <h2 th:text="${calendario.titulo}">
+                    Julio de 2026
+                </h2>
+
+                <p th:text="${calendario.cantidadEventos
+                        + ' eventos confirmados'}">
+
+                    0 eventos confirmados
+
+                </p>
+
+            </div>
+
+            <a th:href="@{/eventos/calendario(
+                    anio=${calendario.anioSiguiente},
+                    mes=${calendario.mesSiguiente}
+               )}"
+               class="calendario-flecha">
+
+                ›
+
+            </a>
+
+        </div>
+
+        <div class="calendario-semana">
+
+            <div>Lunes</div>
+            <div>Martes</div>
+            <div>Miércoles</div>
+            <div>Jueves</div>
+            <div>Viernes</div>
+            <div>Sábado</div>
+            <div>Domingo</div>
+
+        </div>
+
+        <div class="calendario-grid">
+
+            <div class="calendario-dia"
+                 th:each="dia : ${calendario.dias}"
+                 th:classappend="${dia.perteneceAlMes}
+                    ? (${dia.fecha != null
+                        and dia.fecha.equals(hoy)}
+                        ? ' dia-hoy'
+                        : '')
+                    : ' dia-vacio'">
+
+                <th:block th:if="${dia.perteneceAlMes}">
+
+                    <div class="calendario-numero">
+
+                        <span th:text="${dia.numeroDia}">
+                            1
+                        </span>
+
+                        <small th:if="${dia.fecha != null
+                                and dia.fecha.equals(hoy)}">
+
+                            Hoy
+
+                        </small>
+
+                    </div>
+
+                    <div class="eventos-del-dia">
+
+                        <article class="evento-calendario"
+                                 th:each="evento : ${dia.eventos}">
+
+                            <div class="evento-calendario-hora"
+                                 th:text="${evento.hora}">
+
+                                20:00
+
+                            </div>
+                            <small>
+    <span th:text="${evento.duracionHoras}">
+        2
+    </span>
+                                h
+                            </small>
+
+                            <strong th:text="${evento.tipoEvento}">
+
+                                Matrimonio
+
+                            </strong>
+
+                            <span th:text="${evento.servicio}">
+
+                                Mariachi
+
+                            </span>
+
+                            <small th:text="${evento.ciudad}">
+
+                                Juliaca
+
+                            </small>
+
+                        </article>
+
+                    </div>
+
+                </th:block>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+</body>
+
+</html>

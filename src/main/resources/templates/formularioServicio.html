@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title th:text="${modoEdicion}
+            ? 'Editar servicio | CADISSON'
+            : 'Nuevo servicio | CADISSON'">
+        Servicio | CADISSON
+    </title>
+
+    <link rel="stylesheet"
+          href="/css/Styles.css"
+          th:href="@{/css/Styles.css}">
+</head>
+
+<body class="pagina-formulario-servicio">
+
+<main class="formulario-servicio-contenedor">
+
+    <header class="formulario-servicio-cabecera">
+
+        <div>
+            <p>Administración de servicios</p>
+
+            <h1 th:text="${modoEdicion}
+                    ? 'Editar servicio'
+                    : 'Nuevo servicio'">
+                Servicio
+            </h1>
+
+            <span th:if="${modoEdicion}">
+                Modifica los datos del servicio seleccionado.
+            </span>
+
+            <span th:unless="${modoEdicion}">
+                Registra un nuevo servicio para CADISSON.
+            </span>
+        </div>
+
+        <a th:href="@{/servicios}"
+           class="btn-formulario-servicio-volver">
+            Volver a servicios
+        </a>
+
+    </header>
+
+    <div class="mensaje-error-admin"
+         th:if="${error != null}"
+         th:text="${error}">
+    </div>
+
+    <section class="formulario-servicio-panel">
+
+        <form th:action="${modoEdicion}
+                    ? @{/servicios/actualizar/{id}(id=${servicioId})}
+                    : @{/servicios/guardar}"
+              th:object="${servicio}"
+              method="post"
+              class="formulario-servicio">
+
+            <div class="resumen-errores"
+                 th:if="${#fields.hasAnyErrors()}">
+
+                <p>Corrige los siguientes datos:</p>
+
+                <ul>
+
+                    <li th:each="error : ${#fields.allErrors()}"
+                        th:text="${error}">
+                        Error
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <div class="formulario-servicio-fila">
+
+                <div class="formulario-servicio-campo">
+
+                    <label for="nombre">
+                        Nombre del servicio
+                    </label>
+
+                    <input type="text"
+                           id="nombre"
+                           th:field="*{nombre}"
+                           maxlength="100"
+                           placeholder="Ejemplo: Mariachi Internacional"
+                           required>
+
+                    <small class="campo-error"
+                           th:if="${#fields.hasErrors('nombre')}"
+                           th:errors="*{nombre}">
+                    </small>
+
+                </div>
+
+                <div class="formulario-servicio-campo">
+
+                    <label for="categoria">
+                        Categoría
+                    </label>
+
+                    <input type="text"
+                           id="categoria"
+                           th:field="*{categoria}"
+                           maxlength="60"
+                           placeholder="Ejemplo: Mariachi"
+                           required>
+
+                    <small class="campo-error"
+                           th:if="${#fields.hasErrors('categoria')}"
+                           th:errors="*{categoria}">
+                    </small>
+
+                </div>
+
+            </div>
+
+            <div class="formulario-servicio-campo">
+
+                <label for="descripcion">
+                    Descripción
+                </label>
+
+                <textarea id="descripcion"
+                          th:field="*{descripcion}"
+                          rows="5"
+                          maxlength="300"
+                          placeholder="Describe las características del servicio"
+                          required>
+                </textarea>
+
+                <small class="campo-error"
+                       th:if="${#fields.hasErrors('descripcion')}"
+                       th:errors="*{descripcion}">
+                </small>
+
+            </div>
+
+            <div class="formulario-servicio-fila">
+
+                <div class="formulario-servicio-campo">
+
+                    <label for="precio">
+                        Precio base
+                    </label>
+
+                    <div class="campo-precio-servicio">
+
+                        <span>S/</span>
+
+                        <input type="number"
+                               id="precio"
+                               th:field="*{precio}"
+                               min="0.01"
+                               step="0.01"
+                               placeholder="650.00"
+                               required>
+
+                    </div>
+
+                    <small class="campo-error"
+                           th:if="${#fields.hasErrors('precio')}"
+                           th:errors="*{precio}">
+                    </small>
+
+                </div>
+
+                <div class="formulario-servicio-campo">
+
+                    <label for="duracion">
+                        Duración incluida
+                    </label>
+
+                    <div class="campo-duracion-servicio">
+
+                        <input type="number"
+                               id="duracion"
+                               th:field="*{duracion}"
+                               min="1"
+                               max="12"
+                               placeholder="2"
+                               required>
+
+                        <span>horas</span>
+
+                    </div>
+
+                    <small class="campo-error"
+                           th:if="${#fields.hasErrors('duracion')}"
+                           th:errors="*{duracion}">
+                    </small>
+
+                </div>
+
+            </div>
+
+            <div class="formulario-servicio-campo">
+
+                <label for="imagen">
+                    Nombre del archivo de imagen
+                </label>
+
+                <input type="text"
+                       id="imagen"
+                       th:field="*{imagen}"
+                       maxlength="150"
+                       placeholder="Ejemplo: mariachi.jpg"
+                       pattern="^[A-Za-z0-9áéíóúÁÉÍÓÚñÑ._-]+\.(jpg|jpeg|png|webp)$"
+                       required>
+
+                <small class="formulario-servicio-ayuda">
+                    La imagen debe existir dentro de
+                    static/images.
+                </small>
+
+                <small class="campo-error"
+                       th:if="${#fields.hasErrors('imagen')}"
+                       th:errors="*{imagen}">
+                </small>
+
+            </div>
+
+            <div class="vista-previa-servicio"
+                 th:if="${servicio.imagen != null
+                         and !#strings.isEmpty(servicio.imagen)}">
+
+                <span>Vista previa actual</span>
+
+                <div>
+
+                    <img th:src="@{'/images/' + ${servicio.imagen}}"
+                         th:alt="${servicio.nombre}"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+
+                    <p>
+                        No se encontró la imagen indicada.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="formulario-servicio-botones">
+
+                <button type="submit"
+                        class="btn-formulario-servicio-guardar"
+                        th:text="${modoEdicion}
+                                ? 'Guardar cambios'
+                                : 'Crear servicio'">
+
+                    Guardar
+
+                </button>
+
+                <a th:href="@{/servicios}"
+                   class="btn-formulario-servicio-cancelar">
+
+                    Cancelar
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </section>
+
+</main>
+
+</body>
+
+</html>

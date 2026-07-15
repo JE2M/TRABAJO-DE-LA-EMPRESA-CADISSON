@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Error | CADISSON</title>
+
+    <link rel="stylesheet"
+          href="/css/Styles.css"
+          th:href="@{/css/Styles.css}">
+
+</head>
+
+<body class="pagina-error">
+
+<main class="error-contenedor">
+
+    <div class="error-codigo"
+         th:text="${status != null ? status : 'Error'}">
+
+        Error
+
+    </div>
+
+    <p class="error-etiqueta">
+        No se pudo completar la operación
+    </p>
+
+    <h1>Ocurrió un problema</h1>
+
+    <p class="error-mensaje">
+        No fue posible procesar la solicitud.
+        Inténtalo nuevamente.
+    </p>
+
+    <div class="error-acciones">
+
+        <a th:href="@{/}"
+           class="error-boton-principal">
+
+            Volver al inicio
+
+        </a>
+
+        <button type="button"
+                class="error-boton-secundario"
+                onclick="history.back()">
+
+            Volver atrás
+
+        </button>
+
+    </div>
+
+</main>
+
+</body>
+
+</html>

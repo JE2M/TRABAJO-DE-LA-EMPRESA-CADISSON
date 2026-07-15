@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Error interno | CADISSON</title>
+
+    <link rel="stylesheet"
+          href="/css/Styles.css"
+          th:href="@{/css/Styles.css}">
+
+</head>
+
+<body class="pagina-error">
+
+<main class="error-contenedor">
+
+    <div class="error-codigo">
+        500
+    </div>
+
+    <p class="error-etiqueta">
+        Error interno
+    </p>
+
+    <h1>Algo salió mal</h1>
+
+    <p class="error-mensaje"
+       th:text="${mensaje != null
+                ? mensaje
+                : 'El sistema presentó un problema inesperado.'}">
+
+        El sistema presentó un problema inesperado.
+
+    </p>
+
+    <p class="error-ayuda">
+        Inténtalo nuevamente. Si el problema continúa,
+        revisa la consola de IntelliJ.
+    </p>
+
+    <div class="error-acciones">
+
+        <a th:href="@{/admin}"
+           class="error-boton-principal">
+
+            Volver al panel
+
+        </a>
+
+        <a th:href="@{/}"
+           class="error-boton-secundario">
+
+            Ir al inicio
+
+        </a>
+
+    </div>
+
+</main>
+
+</body>
+
+</html>
